@@ -1,24 +1,32 @@
-// This one will be a little tricky. So check out this overview first: https://www.youtube.com/watch?v=sJ-c3BA-Ypo
+const branchInfo = { branch: "Cape Town", branchCode: 1111 };
+const branchInfo2 = { branch: "Johannesburg", branchCode: 2222 };
 
-// 1. Create a variable to store the singleton instance of the bank branch. "bankBranchInstance"
+let bankBranchInstance;
+class BankBranch {
+  constructor(branchInfo) {
+    if (!BankBranch.instance) {
+      this.branchInfo = branchInfo;
+      BankBranch.instance = this;
+    }
+    return BankBranch.instance;
+  }
 
-// 2. Define a class called `BankBranch` for managing branch information.
+  getBranchInfo() {
+    return console.log(`${JSON.stringify(this.branchInfo)}`);
+  }
 
-// 3. In the `BankBranch` class:
-//    - Create a constructor that takes `branchInfo` as a parameter.
-//    - Inside the constructor, check if the `bankBranchInstance` variable is null (indicating no instance exists).
-//    - If `bankBranchInstance` is null, create a new instance with the provided `branchInfo` and assign it to `bankBranchInstance`.
-//    - Return the `bankBranchInstance` whether it's newly created or existing.
+  // static getInstance(branchInfo) {
+  // if (!BankBranch.instance) {
+  //   BankBranch.instance = new BankBranch(branchInfo);
+  //}
+  //  return BankBranch.instance;
+  //}
+}
 
-// 4. Add methods to the `BankBranch` class for managing branch-related information. For example, you can add a method like `getBranchInfo` to retrieve branch details.
+const branchA = new BankBranch(branchInfo);
+const branchB = new BankBranch(branchInfo2);
 
-// 5. In the usage section:
-//    - Create instances of the `BankBranch` class, such as `branchA` and `branchB`, with different branch information.
-//    - Use the `getBranchInfo` method to retrieve branch information from the instances.
-//    - Verify that `branchA` and `branchB` are both referring to the same instance by comparing them using `===`.
-
-// This pseudo-code provides a step-by-step explanation of how to implement the Singleton Pattern for managing a single instance of the `BankBranch` class throughout the application, ensuring that multiple instances refer to the same object.
-
+console.log(branchA === branchB);
 // NOTES:
 // This example demonstrates the Singleton pattern by creating a single instance of the `BankBranch` class.
 // Even if we attempt to create another instance of the branch, we receive the original instance,
