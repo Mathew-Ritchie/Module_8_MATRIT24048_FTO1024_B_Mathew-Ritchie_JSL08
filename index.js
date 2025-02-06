@@ -1,27 +1,31 @@
 const branchInfo = { branch: "Cape Town", branchCode: 1111 };
 const branchInfo2 = { branch: "Johannesburg", branchCode: 2222 };
 
-let bankBranchInstance;
+let bankBranchInstance; //Creating a variable to store the singleton instance
 
 class BankBranch {
+  //Creating a class
   constructor(branchInfo) {
     if (!bankBranchInstance) {
-      this.branchInfo = branchInfo;
+      // Checking if there is already an instance by checking if bankBranchInstance has a null value.
+      this.branchInfo = branchInfo; // if there is no instance then we create one and used Object.freeze to make imposible to change.
       bankBranchInstance = Object.freeze(this);
     }
     return bankBranchInstance;
   }
   getBranchInfo() {
-    return this.branchInfo;
+    // getBanchInfo is a method to console.log the branch information.
+    return console.log(this.branchInfo);
   }
 }
 
-const branchA = new BankBranch(branchInfo);
-const branchB = new BankBranch(branchInfo2);
+const branchA = new BankBranch(branchInfo); // creation of the first singleton instance
+const branchB = new BankBranch(branchInfo2); // this second call will not create a new instance as the if condition is now false and therefore the constructor will return the existing one alreay stored.
 
-console.log(branchA);
+console.log(branchA); // console.log(branchA) and console.log(branchB) will output the same object which was the bankinfo when the singleton instance was first created.
 console.log(branchB);
 console.log(branchA === branchB);
+
 // NOTES:
 // This example demonstrates the Singleton pattern by creating a single instance of the `BankBranch` class.
 // Even if we attempt to create another instance of the branch, we receive the original instance,
