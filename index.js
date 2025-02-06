@@ -2,30 +2,25 @@ const branchInfo = { branch: "Cape Town", branchCode: 1111 };
 const branchInfo2 = { branch: "Johannesburg", branchCode: 2222 };
 
 let bankBranchInstance;
+
 class BankBranch {
   constructor(branchInfo) {
-    if (!BankBranch.instance) {
+    if (!bankBranchInstance) {
       this.branchInfo = branchInfo;
-      BankBranch.instance = this;
+      bankBranchInstance = Object.freeze(this);
     }
-    return BankBranch.instance;
+    return bankBranchInstance;
   }
-
   getBranchInfo() {
-    return console.log(`${JSON.stringify(this.branchInfo)}`);
+    return this.branchInfo;
   }
-
-  // static getInstance(branchInfo) {
-  // if (!BankBranch.instance) {
-  //   BankBranch.instance = new BankBranch(branchInfo);
-  //}
-  //  return BankBranch.instance;
-  //}
 }
 
 const branchA = new BankBranch(branchInfo);
 const branchB = new BankBranch(branchInfo2);
 
+console.log(branchA);
+console.log(branchB);
 console.log(branchA === branchB);
 // NOTES:
 // This example demonstrates the Singleton pattern by creating a single instance of the `BankBranch` class.
